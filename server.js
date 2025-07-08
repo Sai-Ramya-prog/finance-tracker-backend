@@ -13,7 +13,7 @@ const app = express();
 
 // CORS fix 👇
 app.use(cors({
-  origin: "http://localhost:3000",
+  origin: ["http://localhost:3000", "https://mybuddyproject.netlify.app/"],
   credentials: true
 }));
 
