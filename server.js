@@ -1,22 +1,28 @@
 const express = require("express");
 const dotenv = require("dotenv");
-const connectDB = require("./config/db");
 const cors = require("cors");
+const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 const transactionRoutes = require("./routes/transactionRoutes");
 const summaryRoutes = require("./routes/summaryRoutes");
 
-const app = express();
 dotenv.config();
 connectDB();
 
-app.use(cors());
+const app = express();
+
+// CORS fix 👇
+app.use(cors({
+  origin: "http://localhost:3000",
+  credentials: true
+}));
+
 app.use(express.json());
+
 app.use("/api/auth", authRoutes);
 app.use("/api/transactions", transactionRoutes);
 app.use("/api/summary", summaryRoutes);
 
-// Test route
 app.get("/", (req, res) => {
   res.send("Finance Tracker API is running...");
 });
